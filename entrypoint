@@ -1,0 +1,61 @@
+#!/usr/bin/env sh
+set -x
+
+env
+
+if [ -n "$SERVICE_TYPE" ] && [ -n "$SERVICE_NAME" ]; then
+  service_type=$(echo "$SERVICE_TYPE" | tr '[:lower:]' '[:upper:]')
+  service_name=$(echo "$SERVICE_NAME" | tr .- _ | tr '[:lower:]' '[:upper:]')
+  host_prefix="DOKKU_${service_type}_${service_name}_PORT_"
+  if [ -z "$SERVICE_HOST" ] && [ -z "$SERVICE_HOST_ENV_VAR" ]; then
+    SERVICE_HOST=$(env | sort | grep "$host_prefix" | grep ADDR= | head -n1 | cut -d= -f2)
+  fi
+  if [ -z "$SERVICE_PORT" ] && [ -z "$SERVICE_PORT_ENV_VAR" ] ; then
+    SERVICE_PORT=$(env | sort | grep "$host_prefix" | grep PORT= | head -n1 | cut -d= -f2)
+  fi
+fi
+
+proxy_to=""
+if [ -n "${PROXY_TO}" ]; then
+  proxy_to="$PROXY_TO"
+else
+  proxy_host=""
+  if [ -n "$SERVICE_HOST" ]; then
+    proxy_host="$SERVICE_HOST"
+  elif [ -n "$SERVICE_HOST_ENV_VAR" ]; then
+    proxy_host="$$SERVICE_HOST_ENV_VAR"
+  fi
+
+  proxy_port=""
+  if [ -n "$SERVICE_PORT" ]; then
+    proxy_port="$SERVICE_PORT"
+  elif [ -n "$SERVICE_PORT_ENV_VAR" ]; then
+    proxy_port="$$SERVICE_PORT_ENV_VAR"
+  fi
+
+  if [ -z "$proxy_host" ]; then
+    echo "No SERVICE_HOST specified" >&2
+    exit 1
+  fi
+
+  if [ -z "$proxy_port" ]; then
+    echo "No SERVICE_PORT specified, using port 80"
+    proxy_port="80"
+  fi
+
+  proxy_to="${proxy_host}:${proxy_port}"
+fi
+
+if [ -z "$proxy_to" ]; then
+  echo "No PROXY_TO variable (or SERVICE_HOST:SERVICE_PORT combination) detected" >&2
+  exit 1
+fi
+
+if [ -z "$PORT" ]; then
+  echo "No PORT variable specified" >&2
+  exit 1
+fi
+
+ls -lah /usr/local/bin/tcp-proxy
+
+/usr/local/bin/tcp-proxy -l "0.0.0.0:$PORT" -r "$proxy_to"
