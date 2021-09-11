@@ -6,13 +6,13 @@ An app that can be provisioned on Dokku to provide a proxy between the service's
 
 ## Supported Services
 
-- [https://github.com/dokku/dokku-clickhouse](clickhouse): port `8123`
-- [https://github.com/dokku/dokku-couchdb](couchdb): port `5984`
-- [https://github.com/dokku/dokku-elasticsearch](elasticsearch): port `9200`
-- [https://github.com/dokku/dokku-graphite](graphite): port `80`
-- [https://github.com/dokku/dokku-rabbitmq](rabbitmq): port `15672`
-- [https://github.com/dokku/dokku-rethinkdb](rethinkdb): port `8080`
-- [https://github.com/dokku/dokku-solr](solr): port `8983`
+- [clickhouse](https://github.com/dokku/dokku-clickhouse): port `8123`
+- [couchdb](https://github.com/dokku/dokku-couchdb): port `5984`
+- [elasticsearch](https://github.com/dokku/dokku-elasticsearch): port `9200`
+- [graphite](https://github.com/dokku/dokku-graphite): port `80`
+- [rabbitmq](https://github.com/dokku/dokku-rabbitmq): port `15672`
+- [rethinkdb](https://github.com/dokku/dokku-rethinkdb): port `8080`
+- [solr](https://github.com/dokku/dokku-solr): port `8983`
 
 ### Deploying
 
