@@ -8,7 +8,7 @@ if [ -n "$SERVICE_TYPE" ] && [ -n "$SERVICE_NAME" ]; then
   service_name=$(echo "$SERVICE_NAME" | tr .- _ | tr '[:lower:]' '[:upper:]')
   host_prefix="DOKKU_${service_type}_${service_name}_PORT_"
   if [ -z "$SERVICE_HOST" ] && [ -z "$SERVICE_HOST_ENV_VAR" ]; then
-    SERVICE_HOST=$(env | sort | grep "$host_prefix" | grep ADDR= | head -n1 | cut -d= -f2)
+    SERVICE_HOST="dokku-${service_type}-${service_name}"
   fi
   if [ -z "$SERVICE_PORT" ] && [ -z "$SERVICE_PORT_ENV_VAR" ] ; then
     SERVICE_PORT=$(env | sort | grep "$host_prefix" | grep PORT= | head -n1 | cut -d= -f2)
