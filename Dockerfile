@@ -16,6 +16,4 @@ COPY --from=build /go/bin/tcp-proxy /usr/local/bin/tcp-proxy
 
 COPY entrypoint /usr/local/bin/entrypoint
 
-RUN which tcp-proxy
-
 CMD ["/usr/local/bin/entrypoint"]
