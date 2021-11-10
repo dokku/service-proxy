@@ -1,7 +1,4 @@
 #!/usr/bin/env sh
-set -x
-
-env
 
 if [ -n "$SERVICE_TYPE" ] && [ -n "$SERVICE_NAME" ]; then
   service_type=$(echo "$SERVICE_TYPE" | tr '[:lower:]' '[:upper:]')
@@ -55,7 +52,5 @@ if [ -z "$PORT" ]; then
   echo "No PORT variable specified" >&2
   exit 1
 fi
-
-ls -lah /usr/local/bin/tcp-proxy
 
 /usr/local/bin/tcp-proxy -l "0.0.0.0:$PORT" -r "$proxy_to"
