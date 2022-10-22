@@ -8,8 +8,6 @@ COPY ["go.mod", "go.sum", "/go/src/github.com/dokku/service-proxy/"]
 
 RUN ls -lah && go build -o /go/bin/tcp-proxy
 
-RUN echo $PWD
-
 FROM alpine:3.13.6
 
 COPY --from=build /go/bin/tcp-proxy /usr/local/bin/tcp-proxy
