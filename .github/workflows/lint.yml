@@ -1,0 +1,74 @@
+---
+name: 'lint'
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  hadolint:
+    name: hadolint
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone
+        uses: actions/checkout@v3
+      - name: Run hadolint
+        uses: hadolint/hadolint-action@f988afea3da57ee48710a9795b6bb677cc901183
+        # v1.6.0 => d7b38582334d9ac11c12021c16f21d63015fa250
+
+  markdown-lint:
+    name: markdown-lint
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone
+        uses: actions/checkout@v3
+      - name: Run markdown-lint
+        uses: avto-dev/markdown-lint@04d43ee9191307b50935a753da3b775ab695eceb
+        # v1.5.0 => 04d43ee9191307b50935a753da3b775ab695eceb
+        with:
+          config: '.github/linters/.markdown-lint.yml'
+          args: './README.md'
+
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone
+        uses: actions/checkout@v3
+      - name: Run shellcheck
+        uses: ludeeus/action-shellcheck@94e0aab03ca135d11a35e5bfc14e6746dc56e7e9
+        # 1.1.0 => 94e0aab03ca135d11a35e5bfc14e6746dc56e7e9
+        env:
+          # keep in sync with tests/shellcheck-exclude
+          SHELLCHECK_OPTS: -e SC1001 -e SC1003 -e SC1090 -e SC1091 -e SC1117 -e SC2029 -e SC2030 -e SC2031 -e SC2034 -e SC2046 -e SC2064 -e SC2068 -e SC2086 -e SC2119 -e SC2120 -e SC2128 -e SC2148 -e SC2153 -e SC2154 -e SC2155 -e SC2162 -e SC2174 -e SC2179 -e SC2191 -e SC2199 -e SC2207 -e SC2219 -e SC2220 -e SC2230 -e SC2231 -e SC2235 -e SC2267 -e SC2295
+
+  shfmt:
+    name: shfmt
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone
+        uses: actions/checkout@v3
+      - name: Run shfmt
+        uses: luizm/action-sh-checker@edd0e45ecff35b05f162052b50df50976c1b74fc
+        # v0.3.0 => 7f44869033b40ee4ffe7dc76c87a1bc66e3d025a
+        env:
+          SHFMT_OPTS: -l -bn -ci -i 2 -d
+        with:
+          sh_checker_shellcheck_disable: true
+
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone
+        uses: actions/checkout@v3
+      - name: Run yamllint
+        uses: ibiqlik/action-yamllint@2576378a8e339169678f9939646ee3ee325e845c
+        # v3.0.4 => ed2b6e911569708ed121c14b87d513860a7e36a7
+        with:
+          config_file: '.github/linters/.yamllint.yml'
