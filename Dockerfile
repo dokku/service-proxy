@@ -1,4 +1,4 @@
-FROM golang:1.19.2-alpine as build
+FROM golang:1.19.4-alpine as build
 
 WORKDIR /go/src/github.com/dokku/service-proxy/
 
