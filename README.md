@@ -11,6 +11,7 @@ An app that can be provisioned on Dokku to provide a proxy between the service's
 - [elasticsearch](https://github.com/dokku/dokku-elasticsearch): port `9200`
 - [graphite](https://github.com/dokku/dokku-graphite): port `80`
 - [meilisearch](https://github.com/dokku/dokku-meilisearch): port `7700`
+- [pushpin](https://github.com/dokku/dokku-pushpin): port `7999`
 - [rabbitmq](https://github.com/dokku/dokku-rabbitmq): port `15672`
 - [rethinkdb](https://github.com/dokku/dokku-rethinkdb): port `8080`
 - [solr](https://github.com/dokku/dokku-solr): port `8983`
