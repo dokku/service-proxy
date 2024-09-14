@@ -5,10 +5,10 @@ name: build
 on:
   pull_request:
     branches:
-      - '*'
+      - "*"
   push:
     branches:
-      - 'master'
+      - "main"
 
 jobs:
   docker:
