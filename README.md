@@ -1,5 +1,7 @@
 # service-proxy
 
+[![dokku/service-proxy](http://dockeri.co/image/dokku/service-proxy)](https://hub.docker.com/r/dokku/service-proxy)
+
 An app that can be provisioned on Dokku to provide a proxy between the service's web ui and your browser.
 
 ## Usage
