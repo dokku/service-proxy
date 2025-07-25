@@ -1,4 +1,4 @@
-FROM golang:1.24.5-alpine as build
+FROM golang:1.24.5-alpine AS build
 
 WORKDIR /go/src/github.com/dokku/service-proxy/
 
@@ -8,7 +8,7 @@ COPY ["go.mod", "go.sum", "/go/src/github.com/dokku/service-proxy/"]
 
 RUN ls -lah && go build -o /go/bin/tcp-proxy
 
-FROM alpine:3.22.0
+FROM alpine:3.22.1
 
 COPY --from=build /go/bin/tcp-proxy /usr/local/bin/tcp-proxy
 
